@@ -1,5 +1,5 @@
 #include "AppDelegate.h"
-#include "HelloWorldScene.h"
+#include "GameScene.h"
 
 USING_NS_CC;
 
@@ -32,13 +32,15 @@ bool AppDelegate::applicationDidFinishLaunching() {
         director->setOpenGLView(glview);
     }
 
+    director->getOpenGLView()->setDesignResolutionSize(720,1280,ResolutionPolicy::SHOW_ALL);
+    
     director->setDisplayStats(true);
 
     director->setAnimationInterval(1.0 / 60);
 
     register_all_packages();
 
-    auto scene = HelloWorld::createScene();
+    auto scene = GameScene::createScene();
 
     director->runWithScene(scene);
 
