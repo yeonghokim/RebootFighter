@@ -11,7 +11,7 @@
 
 USING_NS_CC;
 
-class Button : public Sprite{
+class Button {
 private:
     Texture2D* mUntouchedButton;
     Texture2D* mTouchedButton;
@@ -19,7 +19,15 @@ private:
     Label* mLabel;
     
 public:
+    static bool IsSprite;
+    
+    Sprite* mSprite = NULL;
+    
+    static Button* create();
+    static Button* create(std::string filepath);
+    
     Label* GetLabel();
+    
     Texture2D* GetUntouchedButton();
 
     void Init(std::string UntouchedPath,std::string TouchedPath,std::string text);

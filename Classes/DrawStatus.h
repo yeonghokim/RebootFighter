@@ -8,7 +8,7 @@
 #pragma once
 
 #include "cocos2d.h"
-#include "Property.h"
+#include "HealthPercent.h"
 
 USING_NS_CC;
 
@@ -29,9 +29,12 @@ private:
 public:
     DrawStatus();
     
+    DrawStatus(bool IsMonster);
+    
+    
     void Init();
     
-    void ChangePentagon(Property property);
+    void ChangePentagon(Status status);
     
     float CalculateSin(float Angle);
     float CalculateCos(float Angle);

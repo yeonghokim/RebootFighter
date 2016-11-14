@@ -1,10 +1,11 @@
 #include "AppDelegate.h"
-#include "GameScene.h"
+#include "MenuScene.h"
+
 
 USING_NS_CC;
 
-AppDelegate::AppDelegate() {
-
+AppDelegate::AppDelegate()
+{
 }
 
 AppDelegate::~AppDelegate() 
@@ -31,16 +32,20 @@ bool AppDelegate::applicationDidFinishLaunching() {
         glview = GLViewImpl::createWithRect("My Game",Rect(0,0,720,1280));
         director->setOpenGLView(glview);
     }
+    if(UserDefault::getInstance()->getIntegerForKey("Level")==0){
+        UserDefault::getInstance()->setIntegerForKey("Level", 0);
+    }
+    
 
     director->getOpenGLView()->setDesignResolutionSize(720,1280,ResolutionPolicy::SHOW_ALL);
     
-    director->setDisplayStats(true);
+    director->setDisplayStats(false);
 
     director->setAnimationInterval(1.0 / 60);
 
     register_all_packages();
 
-    auto scene = GameScene::createScene();
+    auto scene = MenuScene::createScene();
 
     director->runWithScene(scene);
 

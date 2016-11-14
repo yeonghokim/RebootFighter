@@ -8,27 +8,20 @@
 
 #include "HealthPercent.h"
 
-HealthPercent::HealthPercent()
-: mBaseHealth(100)
-, mChangeValue(1.0f){
+float Health::GetPercentHealth(){
+    return mHealth/(float)mMaxHealth*100;
+}
+void Health::Damaged(int damage){
+    mHealth-=damage;
+}
+void Health::Init(Element defence){
+    
+    int baseHp=150;
+    
+    mHealth=baseHp+3*(defence.mMagic+defence.mPhysical);
+    mMaxHealth=mHealth;
     
 }
-
-int HealthPercent::GetPhysicalDefense() const{
-    return mPhysicalDefense;
+bool Health::IsDie(){
+    return mHealth<=0;
 }
-int HealthPercent::GetMagicDefense() const{
-    return mMagicDefense;
-}
-
-void HealthPercent::SetStatus(int physicDefence, int magicDefence){
-    
-    mPhysicalDefense=physicDefence;
-    mMagicDefense=magicDefence;
-
-}
-int HealthPercent::CalculatePercent(int luck, PM damage){
-    //구현 아직 안함
-    return 0;
-}
-

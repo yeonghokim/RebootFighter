@@ -8,34 +8,21 @@
 #pragma once
 
 #include "cocos2d.h"
-#include "IProperty.h"
-
+#include "Status.h"
 
 USING_NS_CC;
 
-class HealthPercent : public IProperty{
+class Health {
 private:
-    const float mBaseHealth;
-    
-    const float mChangeValue;
-    
-    int mPhysicalDefense;
-    int mMagicDefense;
-
-
+    int mHealth;
+    int mMaxHealth;
 
 public:
+    void Damaged(int damage);
     
-    HealthPercent();
+    void Init(Element defence);
     
-    int GetPhysicalDefense() const;
-    int GetMagicDefense() const;
+    float GetPercentHealth();
     
-    
-    void SetStatus(int physicDefence, int magicDefence);
-    
-    int CalculatePercent(int luck,PM damage) override;
-    
-    
-    
+    bool IsDie();
 };

@@ -9,26 +9,38 @@
 
 DrawStatus::DrawStatus()
 : mRadius(100)
-, mFillColor(Color4F(0,0,1,0.5))
+, mFillColor(Color4F(1,1,1, 0.5))
 , mColorLine(Color4F::BLACK){
 }
+
+DrawStatus::DrawStatus(bool IsMonster)
+: mRadius(100)
+, mFillColor(Color4F(1,1,1,0.5))
+, mColorLine(Color4F::BLACK){
+}
+
 Layer* DrawStatus::GetLayer(){
     return mLayer;
 }
 void DrawStatus::Init(){
-    mLayer=Layer::create();
     drawnode =DrawNode::create();
     drawnode->setOpacity(122);
-    Point Circle[5]={Point(0,0)};
     
+    mLayer=Layer::create();
     mLayer->addChild(drawnode);
 }
-void DrawStatus::ChangePentagon(Property property){
-    
+void DrawStatus::ChangePentagon(Status stat){
     Point Circle[5];
-    int array[5] = {property.mFortune,property.mDamage.GetPhysicalDamage(),property.mHealth.GetPhysicalDefense(),property.mHealth.GetMagicDefense(),property.mDamage.GetMagicDamage()};
+    int array[5] = {stat.mFortune,
+                    stat.mAttack.mPhysical,
+                    stat.mDefence.mPhysical,
+                    stat.mDefence.mMagic,
+                    stat.mAttack.mMagic};
     
     for(int i=0;i<5;i++){
+        array[i] = array[i]>100?100:array[i];
+        array[i] = array[i]<0?0:array[i];
+        
         float Angle = CC_DEGREES_TO_RADIANS(i*(-72));//최대치
         
         Circle[i]=Point(array[i]*CalculateSin(Angle),array[i]*CalculateCos(Angle));
