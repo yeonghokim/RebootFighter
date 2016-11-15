@@ -13,6 +13,7 @@
 		081EB1791DC50D76004CA935 /* goblin in Resources */ = {isa = PBXBuildFile; fileRef = 081EB1701DC50D76004CA935 /* goblin */; };
 		081EB17D1DC50D76004CA935 /* TimeBar in Resources */ = {isa = PBXBuildFile; fileRef = 081EB1741DC50D76004CA935 /* TimeBar */; };
 		081EB17E1DC50D76004CA935 /* UI in Resources */ = {isa = PBXBuildFile; fileRef = 081EB1751DC50D76004CA935 /* UI */; };
+		084313011DDBC1C200FE11B0 /* HpBarEdge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 084313001DDBC1C200FE11B0 /* HpBarEdge.cpp */; };
 		08924C3B1DDB5713001E792D /* ver2 in Resources */ = {isa = PBXBuildFile; fileRef = 08924C3A1DDB5713001E792D /* ver2 */; };
 		08924C3D1DDB575E001E792D /* Character in Resources */ = {isa = PBXBuildFile; fileRef = 08924C3C1DDB575E001E792D /* Character */; };
 		08924C411DDB57B0001E792D /* HpBar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08924C401DDB57B0001E792D /* HpBar.cpp */; };
@@ -121,6 +122,8 @@
 		081EB1741DC50D76004CA935 /* TimeBar */ = {isa = PBXFileReference; lastKnownFileType = folder; path = TimeBar; sourceTree = "<group>"; };
 		081EB1751DC50D76004CA935 /* UI */ = {isa = PBXFileReference; lastKnownFileType = folder; path = UI; sourceTree = "<group>"; };
 		0839215D1DC53155005B92DF /* CocosMusic.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CocosMusic.h; sourceTree = "<group>"; };
+		084312FF1DDBC1B100FE11B0 /* HpBarEdge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HpBarEdge.h; sourceTree = "<group>"; };
+		084313001DDBC1C200FE11B0 /* HpBarEdge.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HpBarEdge.cpp; sourceTree = "<group>"; };
 		08924C3A1DDB5713001E792D /* ver2 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ver2; sourceTree = "<group>"; };
 		08924C3C1DDB575E001E792D /* Character */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Character; sourceTree = "<group>"; };
 		08924C3E1DDB579E001E792D /* HpBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HpBar.h; sourceTree = "<group>"; };
@@ -256,12 +259,22 @@
 			path = Classes;
 			sourceTree = "<group>";
 		};
+		084312FE1DDBC1A000FE11B0 /* HpBar */ = {
+			isa = PBXGroup;
+			children = (
+				08924C3E1DDB579E001E792D /* HpBar.h */,
+				08924C401DDB57B0001E792D /* HpBar.cpp */,
+				084312FF1DDBC1B100FE11B0 /* HpBarEdge.h */,
+				084313001DDBC1C200FE11B0 /* HpBarEdge.cpp */,
+			);
+			name = HpBar;
+			sourceTree = "<group>";
+		};
 		08924C3F1DDB57A2001E792D /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				084312FE1DDBC1A000FE11B0 /* HpBar */,
 				08924C451DDB5857001E792D /* UIManager */,
-				08924C3E1DDB579E001E792D /* HpBar.h */,
-				08924C401DDB57B0001E792D /* HpBar.cpp */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -661,6 +674,7 @@
 				08CBECA11DC4565900C4ECCE /* TextureManager.cpp in Sources */,
 				46880B8A19C43A87006E1F66 /* GameScene.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
+				084313011DDBC1C200FE11B0 /* HpBarEdge.cpp in Sources */,
 				08AA191E1DC3964300009593 /* Fighter.cpp in Sources */,
 				08DB7E931DC58B7A00CE76D6 /* CocosMusic.cpp in Sources */,
 				08E881131DC6B24300BB99C6 /* GameStatus.cpp in Sources */,

@@ -24,5 +24,7 @@ public:
     
     float GetPercentHealth();
     
+    int* GetHealthPointer();
+    
     bool IsDie();
 };

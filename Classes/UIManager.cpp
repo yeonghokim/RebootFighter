@@ -9,7 +9,10 @@
 #include "UIManager.h"
 
 void UIManager::Init(std::string str){
+    mLayer=Layer::create();
     mSprite= Sprite::create(str);
+    mLayer->addChild(mSprite);
+    
     IsButton=false;
     mZorder=0;
 }
@@ -41,7 +44,7 @@ void UIManager::SetAnchorPoint(Point point){
     mSprite->setAnchorPoint(point);
 }
 void UIManager::SetPosition(int x, int y){
-    mSprite->setPosition(x,y);
+    mLayer->setPosition(x,y);
 }
 void UIManager::SetZorder(int zorder){
     mZorder=zorder;
@@ -60,5 +63,5 @@ Texture2D* UIManager::GetTexture(std::string str){
 }
 void UIManager::GetParents(Node* node){
     mParents=node;
-    mParents->addChild(mSprite,mZorder);
+    mParents->addChild(mLayer,mZorder);
 }

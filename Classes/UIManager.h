@@ -15,6 +15,8 @@ USING_NS_CC;
 
 class UIManager{
 protected:
+    Layer* mLayer;
+    
     int mZorder;
     
     Sprite* mSprite;

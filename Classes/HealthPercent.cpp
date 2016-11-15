@@ -11,6 +11,9 @@
 float Health::GetPercentHealth(){
     return mHealth/(float)mMaxHealth*100;
 }
+int* Health::GetHealthPointer(){
+    return &mHealth;
+}
 void Health::Damaged(int damage){
     mHealth-=damage;
 }

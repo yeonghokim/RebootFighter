@@ -14,28 +14,37 @@ USING_NS_CC;
 
 class HpBar : public UIManager{
 private:
-    bool IsSpriteB;
-    
     Sprite* mSpriteB;
+    
+    Texture2D* mHpbarBody;
+    
+    Texture2D* mHpbarEdge;
+    
+    Point mPoint;
+private:
+    
+    bool IsSpriteB;
     
     int mMaxHp;
     
-    int mHp;
+    int* mHp;
 
 public:
-    void Init(int maxhp);
+    void Init(int* maxhp);
     
+public:
     float GetPercent();
     
-    void GetParents(Node* node);
+    int GetMaxHp();
     
-    void SetHp(int hp);
+public:
+    void SetHp();
     
-    void SetPositionB(int x, int y);
+    void SetSpriteB(int number);
     
-    void SetSpriteB();
-    
-    void SetAnchorPointB(Point point);
+    void SetAnchorPoint(Point point);
     
     void SetFlipped();
+    
+    void SetPosition(int x ,int y);
 };

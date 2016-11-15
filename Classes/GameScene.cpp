@@ -100,10 +100,12 @@ bool GameScene::init()
     FighterSprite->setAnchorPoint(Point(0.5,0));
     this->addChild(FighterSprite,(int)Zorder::FighterSprite);
     
+    
+    
     //체력 바 클래스 구현 (11월 16일 오전 12시 32분)
-#define DefaultHp 100
+#define DefaultHp 50
     mFighterHpBar = new HpBar();
-    mFighterHpBar->Init(DefaultHp);
+    mFighterHpBar->Init(mFighter->GetHealth().GetHealthPointer());
     mFighterHpBar->SetPosition(300, 1210);
     mFighterHpBar->SetAnchorPoint(Point(1,0.5));
     mFighterHpBar->SetFlipped();
@@ -111,7 +113,7 @@ bool GameScene::init()
     mFighterHpBar->GetParents(this);
     
     mMonsterHpBar = new HpBar();
-    mMonsterHpBar->Init(DefaultHp);
+    mMonsterHpBar->Init(mMonster->GetHealth().GetHealthPointer());
     mMonsterHpBar->SetPosition(420, 1210);
     mMonsterHpBar->SetAnchorPoint(Point(0,0.5));
     mMonsterHpBar->SetZorder((int)Zorder::Content);

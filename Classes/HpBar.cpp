@@ -7,44 +7,50 @@
 //
 #include "HpBar.h"
 
-void HpBar::Init(int maxhp){
+void HpBar::Init(int* maxhp){
     std::string str(Ver2);
     UIManager::Init(str+"UI/hpbar_energy_A.png");
 
-    IsSpriteB=false;
+    //줄어들기
     
-    mMaxHp=maxhp;
-    mHp=mMaxHp;
+    if(*maxhp>650)
+        SetSpriteB(*maxhp-650);
+        //B줄어들기
+    
+    mMaxHp=*maxhp;
+    mHp=maxhp;
+    
+    mHpbarEdge=GetTexture(str+"UI/hpbar_edge.png");
+    mHpbarBody=GetTexture(str+"UI/hpbar_body.png");
 }
 //-------------Setter---------------//
-void HpBar::SetPositionB(int x, int y){
-    if(IsSpriteB)
-        mSpriteB->setPosition(x,y);
-}
-void HpBar::SetHp(int hp){
-    mHp=hp;
+void HpBar::SetHp(){
     if(IsSpriteB){
         //B 타입 줄어들기
-        
-        
     }else{
-        mSprite->setScaleX(GetPercent());
+        //줄어들기
     }
 }
-void HpBar::SetSpriteB(){
+void HpBar::SetSpriteB(int number){
     mSpriteB = Sprite::create("ver2/UI/hpbar_energy_B.png");
+    
+    
+    mLayer->addChild(mSpriteB);
+    
     IsSpriteB=true;
+}
+void HpBar::SetPosition(int x ,int y){
+    mPoint=Point(x,y);
+    if(mSpriteB)
+        mSpriteB->setPosition(x,y-50);
 }
 //--------------Getter--------------//
 float HpBar::GetPercent(){
-    return (float)mHp/mMaxHp;
+    return (float)*mHp/mMaxHp;
 }
-void HpBar::GetParents(Node* node){
-    UIManager::GetParents(node);
-    if(IsSpriteB)
-        node->addChild(mSpriteB,mZorder);
-}
-void HpBar::SetAnchorPointB(Point point){
+void HpBar::SetAnchorPoint(Point point){
+    UIManager::SetAnchorPoint(point);
+    
     if(IsSpriteB)
         mSpriteB->setAnchorPoint(point);
 }
@@ -52,4 +58,7 @@ void HpBar::SetFlipped(){
     mSprite->setFlippedX(true);
     if(IsSpriteB)
         mSpriteB->setFlippedX(true);
+}
+int HpBar::GetMaxHp(){
+    return mMaxHp;
 }
