@@ -33,6 +33,7 @@ bool GameScene::init()
 
     CCLOG("GameSceneInit");
 
+    /*
     //플레이어 체력바
     auto HpBar = Sprite::create("UI/hpbar.png");
     HpBar->setAnchorPoint(Point(1,0.5));
@@ -59,6 +60,7 @@ bool GameScene::init()
     mMonsterBlinder->setPosition(690,1185);
     this->addChild(mMonsterBlinder,(int)Zorder::Blinder);
 
+    
     //vs바 틀
     auto vsbarempty =Sprite::create("TimeBar/TimeBarEmpty.png");
     vsbarempty->setPosition(360,1210);
@@ -68,7 +70,7 @@ bool GameScene::init()
     auto vsBar=Sprite::create("UI/vs.png");
     vsBar->setPosition(360,1210);
     vsBar->setAnchorPoint(Point(0.5,0.5));
-    this->addChild(vsBar,(int)Zorder::Content);
+    this->addChild(vsBar,(int)Zorder::Content);*/
     
     //몬스터 객체
     mMonster= new Fighter();
@@ -98,6 +100,23 @@ bool GameScene::init()
     FighterSprite->setAnchorPoint(Point(0.5,0));
     this->addChild(FighterSprite,(int)Zorder::FighterSprite);
     
+    //체력 바 클래스 구현 (11월 16일 오전 12시 32분)
+#define DefaultHp 100
+    mFighterHpBar = new HpBar();
+    mFighterHpBar->Init(DefaultHp);
+    mFighterHpBar->SetPosition(300, 1210);
+    mFighterHpBar->SetAnchorPoint(Point(1,0.5));
+    mFighterHpBar->SetFlipped();
+    mFighterHpBar->SetZorder((int)Zorder::Content);
+    mFighterHpBar->GetParents(this);
+    
+    mMonsterHpBar = new HpBar();
+    mMonsterHpBar->Init(DefaultHp);
+    mMonsterHpBar->SetPosition(420, 1210);
+    mMonsterHpBar->SetAnchorPoint(Point(0,0.5));
+    mMonsterHpBar->SetZorder((int)Zorder::Content);
+    mMonsterHpBar->GetParents(this);
+    
     //배경 이미지
     auto bg = Sprite::create("UI/bg.png");
     bg->setPosition(0, 680);
@@ -113,24 +132,25 @@ bool GameScene::init()
 
 //-------------------------------중간----------------------------------------//
     CCLOG("Init Medle");
-    TimeTexture[0]=TextureManager::CreateTexture("TimeBar/TimeBarFull.png");
+    TimeTexture[0]=TextureManager::CreateTexture("ver2/UI/timebar_energy.png");
     TimeTexture[1]=TextureManager::CreateTexture("TimeBar/TimeBarFullRed.png");
     
     //시간바
     mProgressTimer =ProgressTimer::create(Sprite::createWithTexture(TimeTexture[0]));
-    mProgressTimer->setPosition(0,600);
+    mProgressTimer->setPosition(20,615);
     mProgressTimer->setAnchorPoint(Point(0,0));
     mProgressTimer->setPercentage(100.0f);
     mProgressTimer->setType(ProgressTimer::Type::BAR);
     mProgressTimer->setMidpoint(Point(0, 0.5f));
     mProgressTimer->setBarChangeRate(Point(1, 0));
-    this->addChild(mProgressTimer,(int)Zorder::Background);
+    mProgressTimer->runAction(ProgressFromTo::create(100, 101, 100));
+    this->addChild(mProgressTimer,(int)Zorder::TimeBar);
     
     //시간바 틀
-    auto timebar=Sprite::create("TimeBar/TimeBarEmpty.png");
+    auto timebar=Sprite::create("ver2/UI/timebar_layout.png");
     timebar->setPosition(0,600);
     timebar->setAnchorPoint(Point(0,0));
-    this->addChild(timebar,(int)Zorder::TimeBar);
+    this->addChild(timebar,(int)Zorder::TimeBar-1);
     
     //플레이어 직업 텍스트
     mCareerLabel=Label::createWithTTF(mFighter->GetCareer()->GetName(), "fonts/jungfont.ttf", 40);
@@ -147,9 +167,8 @@ bool GameScene::init()
     inforback->setPosition(0,120);
     inforback->setAnchorPoint(Point(0,0));
     this->addChild(inforback,(int)Zorder::Background);
-
 //--------------------------------하단---------------------------------------//
-    CCLOG("Init Bottom");\
+    CCLOG("Init Bottom");
     
     //버튼 두개
     mButtonReset= Button::create();
@@ -158,8 +177,8 @@ bool GameScene::init()
     mButtonArray.push_back(mButtonReset);
     mButtonArray.push_back(mButtonFight);
     
-    mButtonReset->Init("Button/btn_un.png", "Button/btn_touch.png", "Reboot");
-    mButtonFight->Init("Button/btn_un.png", "Button/btn_touch.png", "Fight");
+    mButtonReset->Init("UI/Button/btn_un.png", "UI/Button/btn_touch.png", "Reboot");
+    mButtonFight->Init("UI/Button/btn_un.png", "UI/Button/btn_touch.png", "Fight");
     
     Point buttonposition[2] ={Point(180,61),Point(540,61)};
     int tmp=0;
@@ -171,8 +190,8 @@ bool GameScene::init()
     }
     mButtonFight->mSprite->setPosition(720,0);
     
-    mButtonPowerup = Button::create("Button/btn_unbig.png");
-    mButtonPowerup->Init("Button/btn_unbig.png", "Button/btn_touchbig.png", "Power Up");
+    mButtonPowerup = Button::create("UI/Button/btn_unbig.png");
+    mButtonPowerup->Init("UI/Button/btn_unbig.png", "UI/Button/btn_touchbig.png", "Power Up");
     mButtonPowerup->mSprite->setAnchorPoint(Point(0.5,0));
     mButtonPowerup->mSprite->setScaleY(1.2f);
     mButtonPowerup->mSprite->setPosition(360,0);

@@ -50,23 +50,23 @@ void Fighter::Dead(){
 void Fighter::ChangeCareer(){
     switch(mCareer->Code){
         case (int)Career::BERSERKER:
-            filepath="Berserker/berserker";
+            filepath="Character/Berserker/berserker";
             break;
             
         case (int)Career::KNIGHT:
-            filepath="Sword/sword";//"Sword/sword";
+            filepath="Character/Sword/sword";//"Sword/sword";
             break;
             
         case (int)Career::WIZARD:
-            filepath="Magician/magician";
+            filepath="Character/Magician/magician";
             break;
             
         case (int)Career::PRIEST:
-            filepath="Priest/priest";
+            filepath="Character/Priest/priest";
             break;
             
         case (int)Career::ADVENTURER:
-            filepath="Adventurer/adventurer";
+            filepath="Character/Adventurer/adventurer";
             break;
             
         case (int)Career::GOBLINWARRIOR:
@@ -86,7 +86,7 @@ void Fighter::ChangeCareer(){
             break;
             
         default:
-            filepath="Knight/knight";
+            filepath="Character/Knight/knight";
     }
     mSprite ->setTexture(filepath+"(0).png");
     
@@ -191,23 +191,23 @@ void Fighter::InitTexture(){
 
     switch(mCareer->Code){
         case (int)Career::BERSERKER:
-            filepath="Berserker/berserker";
+            filepath="Character/Berserker/berserker";
             break;
             
         case (int)Career::KNIGHT:
-            filepath="Sword/sword";
+            filepath="Character/Sword/sword";
             break;
             
         case (int)Career::WIZARD:
-            filepath="Magician/magician";
+            filepath="Character/Magician/magician";
             break;
             
         case (int)Career::PRIEST:
-            filepath="Priest/priest";
+            filepath="Character/Priest/priest";
             break;
             
         case (int)Career::ADVENTURER:
-           filepath="Adventurer/adventurer";
+           filepath="Character/Adventurer/adventurer";
             break;
             
         case (int)Career::GOBLINWARRIOR:
@@ -227,7 +227,7 @@ void Fighter::InitTexture(){
             break;
             
         default:
-            filepath="Knight/knight";
+            filepath="Character/Knight/knight";
             
             
     }

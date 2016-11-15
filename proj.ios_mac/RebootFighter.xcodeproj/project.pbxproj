@@ -9,16 +9,14 @@
 /* Begin PBXBuildFile section */
 		08076EBA1DC426200073F8BD /* Career.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08076EB91DC426200073F8BD /* Career.cpp */; };
 		081BABD11DD35EA0008E32FF /* GameHit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 081BABD01DD35EA0008E32FF /* GameHit.cpp */; };
-		081EB1761DC50D76004CA935 /* Adventurer in Resources */ = {isa = PBXBuildFile; fileRef = 081EB16D1DC50D76004CA935 /* Adventurer */; };
-		081EB1771DC50D76004CA935 /* Button in Resources */ = {isa = PBXBuildFile; fileRef = 081EB16E1DC50D76004CA935 /* Button */; };
 		081EB1781DC50D76004CA935 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 081EB16F1DC50D76004CA935 /* fonts */; };
 		081EB1791DC50D76004CA935 /* goblin in Resources */ = {isa = PBXBuildFile; fileRef = 081EB1701DC50D76004CA935 /* goblin */; };
-		081EB17A1DC50D76004CA935 /* Knight in Resources */ = {isa = PBXBuildFile; fileRef = 081EB1711DC50D76004CA935 /* Knight */; };
-		081EB17B1DC50D76004CA935 /* Magician in Resources */ = {isa = PBXBuildFile; fileRef = 081EB1721DC50D76004CA935 /* Magician */; };
-		081EB17C1DC50D76004CA935 /* Sword in Resources */ = {isa = PBXBuildFile; fileRef = 081EB1731DC50D76004CA935 /* Sword */; };
 		081EB17D1DC50D76004CA935 /* TimeBar in Resources */ = {isa = PBXBuildFile; fileRef = 081EB1741DC50D76004CA935 /* TimeBar */; };
 		081EB17E1DC50D76004CA935 /* UI in Resources */ = {isa = PBXBuildFile; fileRef = 081EB1751DC50D76004CA935 /* UI */; };
-		081EB1821DC51436004CA935 /* Priest in Resources */ = {isa = PBXBuildFile; fileRef = 081EB1811DC51436004CA935 /* Priest */; };
+		08924C3B1DDB5713001E792D /* ver2 in Resources */ = {isa = PBXBuildFile; fileRef = 08924C3A1DDB5713001E792D /* ver2 */; };
+		08924C3D1DDB575E001E792D /* Character in Resources */ = {isa = PBXBuildFile; fileRef = 08924C3C1DDB575E001E792D /* Character */; };
+		08924C411DDB57B0001E792D /* HpBar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08924C401DDB57B0001E792D /* HpBar.cpp */; };
+		08924C441DDB5854001E792D /* UIManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08924C431DDB5854001E792D /* UIManager.cpp */; };
 		08AA19191DC38B6C00009593 /* DrawStatus.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08AA19181DC38B6C00009593 /* DrawStatus.cpp */; };
 		08AA191E1DC3964300009593 /* Fighter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08AA191D1DC3964200009593 /* Fighter.cpp */; };
 		08AA19231DC396AE00009593 /* HealthPercent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08AA19211DC396AE00009593 /* HealthPercent.cpp */; };
@@ -27,7 +25,6 @@
 		08CEA80B1DC495A200BD0706 /* MenuScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08CEA80A1DC495A200BD0706 /* MenuScene.cpp */; };
 		08DB7E931DC58B7A00CE76D6 /* CocosMusic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08DB7E921DC58B7A00CE76D6 /* CocosMusic.cpp */; };
 		08DB7E951DC58C0700CE76D6 /* Music in Resources */ = {isa = PBXBuildFile; fileRef = 08DB7E941DC58C0700CE76D6 /* Music */; };
-		08DB7E981DC5916400CE76D6 /* Berserker in Resources */ = {isa = PBXBuildFile; fileRef = 08DB7E971DC5916400CE76D6 /* Berserker */; };
 		08E881131DC6B24300BB99C6 /* GameStatus.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08E881121DC6B24300BB99C6 /* GameStatus.cpp */; };
 		08E881151DC6B25000BB99C6 /* DelayManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08E881141DC6B25000BB99C6 /* DelayManager.cpp */; };
 		1AC6FB21180E996B004C840B /* libcocos2d Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FAF9180E9839004C840B /* libcocos2d Mac.a */; };
@@ -119,17 +116,17 @@
 		08076EB91DC426200073F8BD /* Career.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Career.cpp; sourceTree = "<group>"; };
 		081BABD01DD35EA0008E32FF /* GameHit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameHit.cpp; sourceTree = "<group>"; };
 		081EB15A1DC4FD96004CA935 /* Element.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Element.h; sourceTree = "<group>"; };
-		081EB16D1DC50D76004CA935 /* Adventurer */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Adventurer; sourceTree = "<group>"; };
-		081EB16E1DC50D76004CA935 /* Button */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Button; sourceTree = "<group>"; };
 		081EB16F1DC50D76004CA935 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		081EB1701DC50D76004CA935 /* goblin */ = {isa = PBXFileReference; lastKnownFileType = folder; path = goblin; sourceTree = "<group>"; };
-		081EB1711DC50D76004CA935 /* Knight */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Knight; sourceTree = "<group>"; };
-		081EB1721DC50D76004CA935 /* Magician */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Magician; sourceTree = "<group>"; };
-		081EB1731DC50D76004CA935 /* Sword */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Sword; sourceTree = "<group>"; };
 		081EB1741DC50D76004CA935 /* TimeBar */ = {isa = PBXFileReference; lastKnownFileType = folder; path = TimeBar; sourceTree = "<group>"; };
 		081EB1751DC50D76004CA935 /* UI */ = {isa = PBXFileReference; lastKnownFileType = folder; path = UI; sourceTree = "<group>"; };
-		081EB1811DC51436004CA935 /* Priest */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Priest; sourceTree = "<group>"; };
 		0839215D1DC53155005B92DF /* CocosMusic.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CocosMusic.h; sourceTree = "<group>"; };
+		08924C3A1DDB5713001E792D /* ver2 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ver2; sourceTree = "<group>"; };
+		08924C3C1DDB575E001E792D /* Character */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Character; sourceTree = "<group>"; };
+		08924C3E1DDB579E001E792D /* HpBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HpBar.h; sourceTree = "<group>"; };
+		08924C401DDB57B0001E792D /* HpBar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HpBar.cpp; sourceTree = "<group>"; };
+		08924C421DDB5848001E792D /* UIManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIManager.h; sourceTree = "<group>"; };
+		08924C431DDB5854001E792D /* UIManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UIManager.cpp; sourceTree = "<group>"; };
 		08AA19181DC38B6C00009593 /* DrawStatus.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DrawStatus.cpp; sourceTree = "<group>"; };
 		08AA191A1DC38B7400009593 /* DrawStatus.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DrawStatus.h; sourceTree = "<group>"; };
 		08AA191D1DC3964200009593 /* Fighter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Fighter.cpp; sourceTree = "<group>"; };
@@ -144,7 +141,6 @@
 		08CEA80C1DC495A800BD0706 /* MenuScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MenuScene.h; sourceTree = "<group>"; };
 		08DB7E921DC58B7A00CE76D6 /* CocosMusic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CocosMusic.cpp; sourceTree = "<group>"; };
 		08DB7E941DC58C0700CE76D6 /* Music */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Music; sourceTree = "<group>"; };
-		08DB7E971DC5916400CE76D6 /* Berserker */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Berserker; sourceTree = "<group>"; };
 		08DB7E9B1DC5A7E100CE76D6 /* DelayManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DelayManager.h; sourceTree = "<group>"; };
 		08E881111DC6B23700BB99C6 /* GameStatus.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameStatus.h; sourceTree = "<group>"; };
 		08E881121DC6B24300BB99C6 /* GameStatus.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameStatus.cpp; sourceTree = "<group>"; };
@@ -258,6 +254,25 @@
 			);
 			name = ios;
 			path = Classes;
+			sourceTree = "<group>";
+		};
+		08924C3F1DDB57A2001E792D /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				08924C451DDB5857001E792D /* UIManager */,
+				08924C3E1DDB579E001E792D /* HpBar.h */,
+				08924C401DDB57B0001E792D /* HpBar.cpp */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+		08924C451DDB5857001E792D /* UIManager */ = {
+			isa = PBXGroup;
+			children = (
+				08924C421DDB5848001E792D /* UIManager.h */,
+				08924C431DDB5854001E792D /* UIManager.cpp */,
+			);
+			name = UIManager;
 			sourceTree = "<group>";
 		};
 		08CBECA41DC4697100C4ECCE /* Drawnode */ = {
@@ -416,16 +431,11 @@
 		46880B7519C43A67006E1F66 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				08DB7E971DC5916400CE76D6 /* Berserker */,
+				08924C3C1DDB575E001E792D /* Character */,
+				08924C3A1DDB5713001E792D /* ver2 */,
 				08DB7E941DC58C0700CE76D6 /* Music */,
-				081EB1811DC51436004CA935 /* Priest */,
-				081EB16D1DC50D76004CA935 /* Adventurer */,
-				081EB16E1DC50D76004CA935 /* Button */,
 				081EB16F1DC50D76004CA935 /* fonts */,
 				081EB1701DC50D76004CA935 /* goblin */,
-				081EB1711DC50D76004CA935 /* Knight */,
-				081EB1721DC50D76004CA935 /* Magician */,
-				081EB1731DC50D76004CA935 /* Sword */,
 				081EB1741DC50D76004CA935 /* TimeBar */,
 				081EB1751DC50D76004CA935 /* UI */,
 			);
@@ -436,6 +446,7 @@
 		46880B8319C43A87006E1F66 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				08924C3F1DDB57A2001E792D /* UI */,
 				08E881181DC6B26A00BB99C6 /* CocosMusic */,
 				08E881171DC6B25E00BB99C6 /* DelayManager */,
 				08E881161DC6B25300BB99C6 /* GameStatus */,
@@ -599,33 +610,28 @@
 			buildActionMask = 2147483647;
 			files = (
 				5087E78117EB970100C73F5D /* Icon-120.png in Resources */,
-				081EB17B1DC50D76004CA935 /* Magician in Resources */,
 				5087E78617EB970100C73F5D /* Icon-76.png in Resources */,
-				081EB1761DC50D76004CA935 /* Adventurer in Resources */,
 				081EB1781DC50D76004CA935 /* fonts in Resources */,
 				5087E77F17EB970100C73F5D /* Default@2x.png in Resources */,
 				50EF629917ECD46A001EB2F8 /* Icon-100.png in Resources */,
 				081EB17D1DC50D76004CA935 /* TimeBar in Resources */,
 				5087E78317EB970100C73F5D /* Icon-152.png in Resources */,
 				081EB1791DC50D76004CA935 /* goblin in Resources */,
-				08DB7E981DC5916400CE76D6 /* Berserker in Resources */,
 				5087E77D17EB970100C73F5D /* Default-568h@2x.png in Resources */,
 				5087E78517EB970100C73F5D /* Icon-72.png in Resources */,
 				521A8E6519F0C34300D177D7 /* Default-736h@3x.png in Resources */,
-				081EB1821DC51436004CA935 /* Priest in Resources */,
 				081EB17E1DC50D76004CA935 /* UI in Resources */,
 				08DB7E951DC58C0700CE76D6 /* Music in Resources */,
 				50EF62A317ECD613001EB2F8 /* Icon-50.png in Resources */,
-				081EB17A1DC50D76004CA935 /* Knight in Resources */,
-				081EB1771DC50D76004CA935 /* Button in Resources */,
 				5087E78017EB970100C73F5D /* Icon-114.png in Resources */,
 				50EF62A217ECD613001EB2F8 /* Icon-29.png in Resources */,
 				50EF629617ECD46A001EB2F8 /* Icon-40.png in Resources */,
 				5087E78217EB970100C73F5D /* Icon-144.png in Resources */,
 				50EF629817ECD46A001EB2F8 /* Icon-80.png in Resources */,
 				5087E78417EB970100C73F5D /* Icon-57.png in Resources */,
-				081EB17C1DC50D76004CA935 /* Sword in Resources */,
+				08924C3B1DDB5713001E792D /* ver2 in Resources */,
 				5087E77E17EB970100C73F5D /* Default.png in Resources */,
+				08924C3D1DDB575E001E792D /* Character in Resources */,
 				521A8E6419F0C34300D177D7 /* Default-667h@2x.png in Resources */,
 				50EF629717ECD46A001EB2F8 /* Icon-58.png in Resources */,
 			);
@@ -648,6 +654,7 @@
 			files = (
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				08E881151DC6B25000BB99C6 /* DelayManager.cpp in Sources */,
+				08924C411DDB57B0001E792D /* HpBar.cpp in Sources */,
 				08CEA80B1DC495A200BD0706 /* MenuScene.cpp in Sources */,
 				08076EBA1DC426200073F8BD /* Career.cpp in Sources */,
 				08AA19231DC396AE00009593 /* HealthPercent.cpp in Sources */,
@@ -660,6 +667,7 @@
 				081BABD11DD35EA0008E32FF /* GameHit.cpp in Sources */,
 				08AA19191DC38B6C00009593 /* DrawStatus.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
+				08924C441DDB5854001E792D /* UIManager.cpp in Sources */,
 				08AC1D421DC3C087003DD8DB /* Button.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
 			);

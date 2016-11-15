@@ -3,6 +3,7 @@
 #include "cocos2d.h"
 #include "Button.h"
 #include "Fighter.h"
+#include "HpBar.h"
 
 #include "DelayManager.h"
 #include "GameStatus.h"
@@ -23,6 +24,10 @@ private:
     
     EventListenerTouchOneByOne* listener;
 
+    //체력 바
+    HpBar* mFighterHpBar;
+    HpBar* mMonsterHpBar;
+    
     //하단 버튼
     Button* mButtonReset;
     Button* mButtonFight;
@@ -38,10 +43,6 @@ private:
     bool IsTime;
     ProgressTimer* mProgressTimer;
     Texture2D* TimeTexture[2];//타임바 색깔 텍스쳐 두개(50이하일때 번갈아 가면서)
-    
-    //HP 블라인더
-    LayerColor* mFighterBlinder;
-    LayerColor* mMonsterBlinder;
     
     //직업 텍스트 뷰어
     Label* mCareerLabel;

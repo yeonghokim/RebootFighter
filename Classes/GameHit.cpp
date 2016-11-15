@@ -55,12 +55,12 @@ void GameScene::HitMonster(){
     
     int sizePercent=100-mMonster->GetHealth().GetPercentHealth();
     if(sizePercent>=100){
-        mMonsterBlinder->setContentSize(Size(280,50));
-        mMonsterBlinder->setPositionX(360+59);
+        //mMonsterBlinder->setContentSize(Size(280,50));
+        //mMonsterBlinder->setPositionX(360+59);
         //끝내기
     }else{
-        mMonsterBlinder->setContentSize(Size(280*sizePercent/(float)100,50));
-        mMonsterBlinder->setPositionX(360+59+280-280*sizePercent/(float)100);
+        //mMonsterBlinder->setContentSize(Size(280*sizePercent/(float)100,50));
+        //mMonsterBlinder->setPositionX(360+59+280-280*sizePercent/(float)100);
     }
 }
 void GameScene::HitPlayer(){
@@ -97,8 +97,8 @@ void GameScene::HitPlayer(){
     
     int sizePercent=100-mFighter->GetHealth().GetPercentHealth();
     if(sizePercent>=100){
-        mFighterBlinder->setContentSize(Size(280,50));
+        //mFighterBlinder->setContentSize(Size(280,50));
     }else{
-        mFighterBlinder->setContentSize(Size(280*sizePercent/(float)100,50));
+        //mFighterBlinder->setContentSize(Size(280*sizePercent/(float)100,50));
     }
 }

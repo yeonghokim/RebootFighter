@@ -43,12 +43,12 @@ bool MenuScene::init()
     StatusGraph->setPosition(360,600);
     this->addChild(StatusGraph);
     
-    auto Knight=Sprite::create("Knight/knight(0).png");
+    auto Knight=Sprite::create("Character/Knight/knight(0).png");
     Knight->setPosition(360,590);
     this->addChild(Knight);
 
     mStart= Button::create();
-    mStart->Init("Button/btn_un.png", "Button/btn_touch.png", "Start");
+    mStart->Init("UI/Button/btn_un.png", "UI/Button/btn_touch.png", "Start");
     mStart->mSprite->setPosition(360,350);
     mStart->GetLabel()->setPosition(Point(360,350));
     this->addChild(mStart->mSprite,1);
