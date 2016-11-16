@@ -10,15 +10,13 @@
 #include "cocos2d.h"
 #include "UIManager.h"
 
+
 USING_NS_CC;
 
 class HpBar : public UIManager{
 private:
     Sprite* mSpriteB;
-    
-    Texture2D* mHpbarBody;
-    
-    Texture2D* mHpbarEdge;
+
     
     Point mPoint;
 private:
@@ -30,7 +28,7 @@ private:
     int* mHp;
 
 public:
-    void Init(int* maxhp);
+    void Init(int* maxhp, bool flipped =true);
     
 public:
     float GetPercent();

@@ -108,12 +108,11 @@ bool GameScene::init()
     mFighterHpBar->Init(mFighter->GetHealth().GetHealthPointer());
     mFighterHpBar->SetPosition(300, 1210);
     mFighterHpBar->SetAnchorPoint(Point(1,0.5));
-    mFighterHpBar->SetFlipped();
     mFighterHpBar->SetZorder((int)Zorder::Content);
     mFighterHpBar->GetParents(this);
     
     mMonsterHpBar = new HpBar();
-    mMonsterHpBar->Init(mMonster->GetHealth().GetHealthPointer());
+    mMonsterHpBar->Init(mMonster->GetHealth().GetHealthPointer(),false);
     mMonsterHpBar->SetPosition(420, 1210);
     mMonsterHpBar->SetAnchorPoint(Point(0,0.5));
     mMonsterHpBar->SetZorder((int)Zorder::Content);

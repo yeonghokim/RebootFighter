@@ -65,3 +65,7 @@ void UIManager::GetParents(Node* node){
     mParents=node;
     mParents->addChild(mLayer,mZorder);
 }
+void UIManager::GetParents(Node* node,int Zorder){
+    mParents=node;
+    mParents->addChild(mLayer,Zorder);
+}

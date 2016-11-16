@@ -45,4 +45,6 @@ public:
     void SetZorder(int zorder);
     
     void GetParents(Node* node);
+    void GetParents(Node* node,int Zorder);
+
 };

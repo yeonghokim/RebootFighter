@@ -9,8 +9,8 @@
 
 
 void CocosMusic::PlayBGM01(){
-    SimpleAudioEngine::getInstance()->playBackgroundMusic("Music/bgm_01.mp3", false);
+    //SimpleAudioEngine::getInstance()->playBackgroundMusic("Music/bgm_01.mp3", false);
 }
 unsigned int CocosMusic::playEffectHit(){
-    SimpleAudioEngine::getInstance()->playEffect("Music/hit_m_001.mp3", false);
+    //SimpleAudioEngine::getInstance()->playEffect("Music/hit_m_001.mp3", false);
 }

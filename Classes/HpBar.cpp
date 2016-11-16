@@ -6,22 +6,36 @@
 //
 //
 #include "HpBar.h"
+#include "HpBarEdge.h"
 
-void HpBar::Init(int* maxhp){
+void HpBar::Init(int* maxhp,bool flipped){
+    
+    
+    
     std::string str(Ver2);
     UIManager::Init(str+"UI/hpbar_energy_A.png");
-
-    //줄어들기
-    
-    if(*maxhp>650)
-        SetSpriteB(*maxhp-650);
-        //B줄어들기
     
     mMaxHp=*maxhp;
     mHp=maxhp;
     
-    mHpbarEdge=GetTexture(str+"UI/hpbar_edge.png");
-    mHpbarBody=GetTexture(str+"UI/hpbar_body.png");
+    HpBarEdge* mEdge= new HpBarEdge();
+    mEdge->AutoSetting(this,flipped);
+    mEdge->GetParents(mLayer,-1);
+    if(flipped)
+        SetFlipped();
+    
+    
+    
+    //줄어들기
+    
+    if(mMaxHp>650)
+        SetSpriteB(mMaxHp-650);
+        //B줄어들기
+    
+
+    
+    
+    
 }
 //-------------Setter---------------//
 void HpBar::SetHp(){
@@ -41,6 +55,7 @@ void HpBar::SetSpriteB(int number){
 }
 void HpBar::SetPosition(int x ,int y){
     mPoint=Point(x,y);
+    mLayer->setPosition(x,y);
     if(mSpriteB)
         mSpriteB->setPosition(x,y-50);
 }
