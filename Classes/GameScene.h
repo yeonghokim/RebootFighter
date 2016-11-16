@@ -69,7 +69,8 @@ private:
         Blinder,
         PowerButton,
         GameOverLayer,
-        GameOverContent
+        GameOverContent,
+        VsBar
     };
 private:
     void HitMonster();

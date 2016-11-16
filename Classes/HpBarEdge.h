@@ -7,16 +7,26 @@
 //
 #pragma once
 
-#include "cocos2d.h"
+#ifndef HPBAREDGE
+#define HPBAREDGE
+
 #include "UIManager.h"
 #include "HpBar.h"
 
-USING_NS_CC;
-
 class HpBarEdge : public UIManager{
 private:
+    Sprite* mEdge;
+    
+    bool IsFlip;
+    
+    Sprite* mBody;
+    
+    Sprite* mFinalEdge;
     
 public:
     void AutoSetting(HpBar* hpbar, bool fliped=true);
     
+    void ChangeSetting(HpBar* hpbar);
 };
+
+#endif

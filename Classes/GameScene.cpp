@@ -33,44 +33,11 @@ bool GameScene::init()
 
     CCLOG("GameSceneInit");
 
-    /*
-    //플레이어 체력바
-    auto HpBar = Sprite::create("UI/hpbar.png");
-    HpBar->setAnchorPoint(Point(1,0.5));
-    HpBar->setPosition(300,1210);
-    this->addChild(HpBar,(int)Zorder::Content);
-    
-    //몬스터 체력바
-    HpBar = Sprite::create("UI/hpbar.png");
-    HpBar->setAnchorPoint(Point(0,0.5));
-    HpBar->setPosition(420,1210);
-    HpBar->setFlippedX(true);
-    this->addChild(HpBar,(int)Zorder::Content);
-    
-    //플레이어 체력 없애는 객체
-    mFighterBlinder=LayerColor::create(Color4B::BLACK);
-    mFighterBlinder->setContentSize(Size(0,50));//0~280
-    mFighterBlinder->setAnchorPoint(Point(0,0));
-    mFighterBlinder->setPosition(20,1185);
-    this->addChild(mFighterBlinder,(int)Zorder::Blinder);
-    
-    //몬스터 체력 없애는 객체
-    mMonsterBlinder=LayerColor::create(Color4B::BLACK);
-    mMonsterBlinder->setContentSize(Size(0,50));//0~280
-    mMonsterBlinder->setPosition(690,1185);
-    this->addChild(mMonsterBlinder,(int)Zorder::Blinder);
-
-    
-    //vs바 틀
-    auto vsbarempty =Sprite::create("TimeBar/TimeBarEmpty.png");
-    vsbarempty->setPosition(360,1210);
-    this->addChild(vsbarempty,(int)Zorder::Content);
-    
-    //vs 이미지
-    auto vsBar=Sprite::create("UI/vs.png");
-    vsBar->setPosition(360,1210);
-    vsBar->setAnchorPoint(Point(0.5,0.5));
-    this->addChild(vsBar,(int)Zorder::Content);*/
+    //플레이어 객체
+    mFighter = new Fighter();
+    mFighter->Init();
+    mFighter->GetDrawStatus()->GetLayer()->setPosition(177,315);
+    this->addChild(mFighter->GetDrawStatus()->GetLayer(),(int)Zorder::FighterSprite);
     
     //몬스터 객체
     mMonster= new Fighter();
@@ -79,31 +46,7 @@ bool GameScene::init()
     mMonster->GetDrawStatus()->GetLayer()->setPosition(537,315);
     this->addChild(mMonster->GetDrawStatus()->GetLayer(),(int)Zorder::MonsterSprite);
     
-    //몬스터 이미지
-    Sprite* MonsterSprite = mMonster->GetSprite();
-    if(mMonster->GetCareer()->GetName()=="고블린 족장")
-        MonsterSprite->setPosition(400,680);
-    else
-        MonsterSprite->setPosition(540,680);
-    MonsterSprite->setAnchorPoint(Point(0.5,0));
-    this->addChild(MonsterSprite,(int)Zorder::MonsterSprite);
-    
-    //플레이어 객체
-    mFighter = new Fighter();
-    mFighter->Init();
-    mFighter->GetDrawStatus()->GetLayer()->setPosition(177,315);
-    this->addChild(mFighter->GetDrawStatus()->GetLayer(),(int)Zorder::FighterSprite);
-    
-    //플레이어 이미지
-    Sprite* FighterSprite = mFighter->GetSprite();
-    FighterSprite->setPosition(180,700);
-    FighterSprite->setAnchorPoint(Point(0.5,0));
-    this->addChild(FighterSprite,(int)Zorder::FighterSprite);
-    
-    
-    
     //체력 바 클래스 구현 (11월 16일 오전 12시 32분)
-#define DefaultHp 50
     mFighterHpBar = new HpBar();
     mFighterHpBar->Init(mFighter->GetHealth().GetHealthPointer());
     mFighterHpBar->SetPosition(300, 1210);
@@ -117,6 +60,25 @@ bool GameScene::init()
     mMonsterHpBar->SetAnchorPoint(Point(0,0.5));
     mMonsterHpBar->SetZorder((int)Zorder::Content);
     mMonsterHpBar->GetParents(this);
+
+    auto vsbar = Sprite::create("ver2/UI/hpbar_middle.png");
+    vsbar->setPosition(360,1210);
+    this->addChild(vsbar,(int)Zorder::VsBar);
+    
+    //몬스터 이미지
+    Sprite* MonsterSprite = mMonster->GetSprite();
+    if(mMonster->GetCareer()->GetName()=="고블린 족장")
+        MonsterSprite->setPosition(400,680);
+    else
+        MonsterSprite->setPosition(540,680);
+    MonsterSprite->setAnchorPoint(Point(0.5,0));
+    this->addChild(MonsterSprite,(int)Zorder::MonsterSprite);
+
+    //플레이어 이미지
+    Sprite* FighterSprite = mFighter->GetSprite();
+    FighterSprite->setPosition(180,700);
+    FighterSprite->setAnchorPoint(Point(0.5,0));
+    this->addChild(FighterSprite,(int)Zorder::FighterSprite);
     
     //배경 이미지
     auto bg = Sprite::create("UI/bg.png");
@@ -268,6 +230,7 @@ void GameScene::onTouchEnded(Touch* touch,Event* unused_event){
     if(mButtonReset->onTouchEnded(touch)&&mGameStatus->IsStatus(GameStatus::nStatus::TIMEACTION)){//Reboot 눌러지면
         mFighter->Reset();//reset
         mFighter->ChangeCareer();
+        mFighterHpBar->SetMaxHp(mFighter->GetHealth().GetHealthPointer());
         mCareerLabel->setString(mFighter->GetCareer()->GetName());
     }
     if(mButtonFight->onTouchEnded(touch)&&mGameStatus->IsStatus(GameStatus::nStatus::TIMEACTION)){//Fight 눌러지면

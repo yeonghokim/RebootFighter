@@ -41,6 +41,7 @@ void Fighter::Reset() {
     this->RandomCareer();
     this->DivideStatus();
     mDrawStatus->ChangePentagon(mStatus);
+    mHealty.Init(mStatus.mDefence);
 }
 
 void Fighter::Dead(){
@@ -183,7 +184,7 @@ void Fighter::Init(){
     
     
     Reset();
-    mHealty.Init(mStatus.mDefence);
+    
     InitTexture();
     
 }

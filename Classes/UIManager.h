@@ -7,7 +7,11 @@
 //
 #pragma once
 
+#ifndef UIMANAGER
+#define UIMANAGER
+
 #include "cocos2d.h"
+
 
 USING_NS_CC;
 
@@ -48,3 +52,6 @@ public:
     void GetParents(Node* node,int Zorder);
 
 };
+
+
+#endif

@@ -7,18 +7,18 @@
 //
 #pragma once
 
-#include "cocos2d.h"
+#ifndef HPBAR
+#define HPBAR
+
 #include "UIManager.h"
-
-
-USING_NS_CC;
 
 class HpBar : public UIManager{
 private:
     Sprite* mSpriteB;
-
     
     Point mPoint;
+    
+    UIManager* mEdge;
 private:
     
     bool IsSpriteB;
@@ -36,9 +36,11 @@ public:
     int GetMaxHp();
     
 public:
+    void SetMaxHp(int* maxhp);
+    
     void SetHp();
     
-    void SetSpriteB(int number);
+    void SetSpriteB(int hp);
     
     void SetAnchorPoint(Point point);
     
@@ -46,3 +48,5 @@ public:
     
     void SetPosition(int x ,int y);
 };
+
+#endif

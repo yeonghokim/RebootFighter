@@ -8,72 +8,88 @@
 #include "HpBar.h"
 #include "HpBarEdge.h"
 
+//처음에 만들때 쓰는 메소드
 void HpBar::Init(int* maxhp,bool flipped){
-    
-    
-    
     std::string str(Ver2);
     UIManager::Init(str+"UI/hpbar_energy_A.png");
-    
+
     mMaxHp=*maxhp;
     mHp=maxhp;
     
-    HpBarEdge* mEdge= new HpBarEdge();
-    mEdge->AutoSetting(this,flipped);
+    mEdge= new HpBarEdge();
+    ((HpBarEdge*)mEdge)->AutoSetting(this,flipped);
     mEdge->GetParents(mLayer,-1);
+    
     if(flipped)
         SetFlipped();
-    
-    
-    
-    //줄어들기
-    
-    if(mMaxHp>650)
-        SetSpriteB(mMaxHp-650);
-        //B줄어들기
-    
 
-    
-    
-    
+    SetHp();
 }
 //-------------Setter---------------//
+
+//최대 체력 구해주고 바꿔주는 메소드
+void HpBar::SetMaxHp(int* maxhp){
+    mMaxHp=*maxhp;
+    mHp=maxhp;
+    ((HpBarEdge*)mEdge)->ChangeSetting(this);
+    SetHp();
+}
+
+//체력 구해주는 메소드, 텍스쳐도 바꿔줌
 void HpBar::SetHp(){
     if(IsSpriteB){
-        //B 타입 줄어들기
+        if(*mHp>650){
+            mSprite->setTextureRect(Rect(0,0,278,53));
+        }
+        else{
+            mSpriteB->setScale(0);
+            mSprite->setTextureRect(Rect(0,0,278*(float)(*mHp)/650.0f,53));
+        }
     }else{
-        //줄어들기
+        mSprite->setTextureRect(Rect(0,0,278*(float)(*mHp)/650.0f,53));
     }
 }
-void HpBar::SetSpriteB(int number){
-    mSpriteB = Sprite::create("ver2/UI/hpbar_energy_B.png");
+
+//BType 만듬
+void HpBar::SetSpriteB(int hp){
+    //구현 아직 X
     
     
-    mLayer->addChild(mSpriteB);
+    
     
     IsSpriteB=true;
 }
+
+//포지션 정해주는 메소드(오버라이드)
 void HpBar::SetPosition(int x ,int y){
-    mPoint=Point(x,y);
+    
     mLayer->setPosition(x,y);
     if(mSpriteB)
         mSpriteB->setPosition(x,y-50);
 }
+
 //--------------Getter--------------//
+//퍼센트 구해주는 메소드
 float HpBar::GetPercent(){
     return (float)*mHp/mMaxHp;
 }
+
+//앵커포인트 설정(오버라이드)
 void HpBar::SetAnchorPoint(Point point){
     UIManager::SetAnchorPoint(point);
     
     if(IsSpriteB)
         mSpriteB->setAnchorPoint(point);
 }
+
+//뒤집어 주는 메소드
 void HpBar::SetFlipped(){
     mSprite->setFlippedX(true);
     if(IsSpriteB)
         mSpriteB->setFlippedX(true);
 }
+
+//최대체력 주는 메소드
 int HpBar::GetMaxHp(){
     return mMaxHp;
 }
