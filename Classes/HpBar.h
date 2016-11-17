@@ -11,24 +11,31 @@
 #define HPBAR
 
 #include "UIManager.h"
+#include "HealthPercent.h"
 
 class HpBar : public UIManager{
 private:
+    float mTextureMax;
+    float mTextureBMax;
+    
+    bool IsBType;
+    bool IsFlipped;
+    
     Sprite* mSpriteB;
     
     Point mPoint;
     
     UIManager* mEdge;
-private:
     
-    bool IsSpriteB;
+    UIManager* mEdgeB;
+private:
     
     int mMaxHp;
     
     int* mHp;
 
 public:
-    void Init(int* maxhp, bool flipped =true);
+    void Init(Health* maxhp, bool flipped =true);
     
 public:
     float GetPercent();
@@ -40,7 +47,7 @@ public:
     
     void SetHp();
     
-    void SetSpriteB(int hp);
+    void SetSpriteB();
     
     void SetAnchorPoint(Point point);
     

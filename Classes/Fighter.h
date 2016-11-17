@@ -48,6 +48,7 @@ public:
     void SetMonster();
     
     Health GetHealth();
+    Health* GetHealthPointer();
     
     Sprite* GetSprite();
     

@@ -11,7 +11,7 @@
 void UIManager::Init(std::string str){
     mLayer=Layer::create();
     mSprite= Sprite::create(str);
-    mLayer->addChild(mSprite);
+    mLayer->addChild(mSprite,0);
     
     IsButton=false;
     mZorder=0;

@@ -36,26 +36,27 @@ bool GameScene::init()
     //플레이어 객체
     mFighter = new Fighter();
     mFighter->Init();
-    mFighter->GetDrawStatus()->GetLayer()->setPosition(177,315);
+    mFighter->GetDrawStatus()->GetLayer()->setPosition(190,420);
     this->addChild(mFighter->GetDrawStatus()->GetLayer(),(int)Zorder::FighterSprite);
     
     //몬스터 객체
     mMonster= new Fighter();
     mMonster->SetMonster();
     mMonster->Init();
-    mMonster->GetDrawStatus()->GetLayer()->setPosition(537,315);
+    mMonster->GetDrawStatus()->GetLayer()->setPosition(537,420);
     this->addChild(mMonster->GetDrawStatus()->GetLayer(),(int)Zorder::MonsterSprite);
     
+//---------------------------------------------------------//
     //체력 바 클래스 구현 (11월 16일 오전 12시 32분)
     mFighterHpBar = new HpBar();
-    mFighterHpBar->Init(mFighter->GetHealth().GetHealthPointer());
+    mFighterHpBar->Init(mFighter->GetHealthPointer());
     mFighterHpBar->SetPosition(300, 1210);
     mFighterHpBar->SetAnchorPoint(Point(1,0.5));
     mFighterHpBar->SetZorder((int)Zorder::Content);
     mFighterHpBar->GetParents(this);
     
     mMonsterHpBar = new HpBar();
-    mMonsterHpBar->Init(mMonster->GetHealth().GetHealthPointer(),false);
+    mMonsterHpBar->Init(mMonster->GetHealthPointer(),false);
     mMonsterHpBar->SetPosition(420, 1210);
     mMonsterHpBar->SetAnchorPoint(Point(0,0.5));
     mMonsterHpBar->SetZorder((int)Zorder::Content);
@@ -64,6 +65,7 @@ bool GameScene::init()
     auto vsbar = Sprite::create("ver2/UI/hpbar_middle.png");
     vsbar->setPosition(360,1210);
     this->addChild(vsbar,(int)Zorder::VsBar);
+//---------------------------------------------------------//
     
     //몬스터 이미지
     Sprite* MonsterSprite = mMonster->GetSprite();
@@ -79,6 +81,7 @@ bool GameScene::init()
     FighterSprite->setPosition(180,700);
     FighterSprite->setAnchorPoint(Point(0.5,0));
     this->addChild(FighterSprite,(int)Zorder::FighterSprite);
+//---------------------------------------------------------//
     
     //배경 이미지
     auto bg = Sprite::create("UI/bg.png");
@@ -117,17 +120,17 @@ bool GameScene::init()
     
     //플레이어 직업 텍스트
     mCareerLabel=Label::createWithTTF(mFighter->GetCareer()->GetName(), "fonts/jungfont.ttf", 40);
-    mCareerLabel->setPosition(180,530);
+    mCareerLabel->setPosition(180,560);
     this->addChild(mCareerLabel,(int)Zorder::Content);
     
     //몬스터 직업 텍스트
     mMonsterCareerLabel=Label::createWithTTF(mMonster->GetCareer()->GetName(), "fonts/jungfont.ttf", 40);
-    mMonsterCareerLabel->setPosition(540,530);
+    mMonsterCareerLabel->setPosition(540,560);
     this->addChild(mMonsterCareerLabel,(int)Zorder::Content);
     
     //스테이터스 배경 이미지
-    auto inforback=Sprite::create("UI/status.png");
-    inforback->setPosition(0,120);
+    auto inforback=Sprite::create("ver2/rebootUI/layout_ability-graph.png");
+    inforback->setPosition(0,242);
     inforback->setAnchorPoint(Point(0,0));
     this->addChild(inforback,(int)Zorder::Background);
 //--------------------------------하단---------------------------------------//
@@ -253,10 +256,12 @@ void GameScene::onTouchEnded(Touch* touch,Event* unused_event){
         if(mButtonRestart->onTouchEnded(touch)){
             Button::IsSprite=false;
             Director::getInstance()->replaceScene(GameScene::createScene());
+            mGameStatus->NextStage();
         }
         if(mButtonMain->onTouchEnded(touch)){
             Button::IsSprite=false;
             Director::getInstance()->replaceScene(MenuScene::createScene());
+            mGameStatus->NextStage();
         }
         return;
     }
@@ -265,7 +270,7 @@ void GameScene::update(float dt){
     mGameStatus->Update();
     
     //------------------- 50퍼 이하일때 색바꾸기 -------------------------------//
-    if(mProgressTimer->getPercentage()<=50){
+    if(mProgressTimer->getPercentage()<=50&&mGameStatus->IsStatus(GameStatus::nStatus::TIMEACTION)){
         if(!this->isScheduled(schedule_selector(GameScene::NoTimeTexture)))
             this->schedule(schedule_selector(GameScene::NoTimeTexture), 0.3f);
     }
@@ -345,6 +350,8 @@ void GameScene::update(float dt){
         Button::IsSprite=false;
         auto scene =TransitionFade::create(1.0f, GameScene::createScene());
         Director::getInstance()->replaceScene(scene);
+        mGameStatus->SetStage(GameStatus::nStatus::NEXTSCENE);
+        mGameStatus->NextStage();
     }
 
 }
@@ -381,7 +388,7 @@ void GameScene::SetBattle(float dt){
                 mFighter->GetSprite()->runAction(sequence);
             }else{
                 if(mFighter->GetCareer()->GetName()=="마법사"){
-                    Sprite* magic = Sprite::create("Magician/magic.png");
+                    Sprite* magic = Sprite::create("Character/Magician/magic.png");
                     Point position =mFighter->GetSprite()->getPosition();
                     position.x+=100;
                     position.y+=100;

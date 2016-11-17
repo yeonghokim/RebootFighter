@@ -31,11 +31,13 @@ void DrawStatus::Init(){
 }
 void DrawStatus::ChangePentagon(Status stat){
     Point Circle[5];
+    
     int array[5] = {stat.mFortune,
                     stat.mAttack.mPhysical,
                     stat.mDefence.mPhysical,
                     stat.mDefence.mMagic,
                     stat.mAttack.mMagic};
+    
     
     for(int i=0;i<5;i++){
         array[i] = array[i]>100?100:array[i];

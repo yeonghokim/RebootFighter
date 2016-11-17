@@ -15,6 +15,8 @@
 
 class HpBarEdge : public UIManager{
 private:
+    bool IsBtype;
+    
     Sprite* mEdge;
     
     bool IsFlip;
@@ -24,9 +26,13 @@ private:
     Sprite* mFinalEdge;
     
 public:
-    void AutoSetting(HpBar* hpbar, bool fliped=true);
+    void AutoSetting(HpBar* hpbar, bool fliped=true,bool isBtype=false);
     
     void ChangeSetting(HpBar* hpbar);
+    
+    void SetBtype();
+    
+    void SetVisible(bool visible);
 };
 
 #endif

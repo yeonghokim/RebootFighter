@@ -19,7 +19,7 @@ void Health::Damaged(int damage){
 }
 void Health::Init(Element defence){
     
-    int baseHp=150;
+    int baseHp=250;
     
     mHealth=baseHp+3*(defence.mMagic+defence.mPhysical);
     mMaxHealth=mHealth;

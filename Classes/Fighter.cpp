@@ -13,6 +13,9 @@ Fighter::~Fighter() {
 Health Fighter::GetHealth(){
     return mHealty;
 }
+Health* Fighter::GetHealthPointer(){
+    return &mHealty;
+}
 Sprite* Fighter::GetSprite(){
     return mSprite;
 }
