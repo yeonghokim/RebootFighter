@@ -37,7 +37,7 @@ bool Fighter::IsAvoidDance() {
 }
 
 bool Fighter::IsKill() {
-    return RandomHelper::random_int(0, 100) <= (8 + (int)(mStatus.mFortune*0.15))/2;
+    return RandomHelper::random_int(0, 100) <= (1 + (int)(mStatus.mFortune*0.15))/2;
 }
 
 void Fighter::Reset() {

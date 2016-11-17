@@ -14,7 +14,9 @@ USING_NS_CC;
 #define DelayTEXT 0
 #define DelayBEFORTIME 1
 #define DelayTIMEACTION 0
-#define DelayBEFORFIGHT 1
+#define DelayBEFORFIRSTATTACK 0
+#define DelayFIRSTATTACK 2
+#define DelayBEFORFIGHT 2
 #define DelayFIGHT 1
 #define DelayRESULT 1
 #define DelayNEXTSCENE 0
@@ -23,9 +25,11 @@ USING_NS_CC;
 
 class GameStatus{
 private:
-    int mDelayNumber[7] ={DelayTEXT*DelayFrame
+    int mDelayNumber[9] ={DelayTEXT*DelayFrame
                          ,DelayBEFORTIME*DelayFrame
                          ,DelayTIMEACTION*DelayFrame
+                         ,DelayBEFORFIRSTATTACK*DelayFrame
+                         ,DelayFIRSTATTACK*DelayFrame
                          ,DelayBEFORFIGHT
                          ,DelayFIGHT*DelayFrame
                          ,DelayRESULT*DelayFrame
@@ -38,16 +42,13 @@ private:
 public:
     void Update();
     
-    enum class nStatus{
-        TEXT=0,BEFORTIME,TIMEACTION,BEFORFIGHT,FIGHT,RESULT,NEXTSCENE
-    };
-    /*
+
      enum class nStatus{
      TEXT=0,BEFORTIME,TIMEACTION,BEFORFIRSTATTACK,FIRSTATTACK,BEFORFIGHT,FIGHT,RESULT,NEXTSCENE
      };
-     시작 -> 스탯 선택 -> 선공 잡기 -> 스킬 사용 및 탭핑 -> 승리 또는 패배
-     */
+     //시작 -> 스탯 선택 -> 선공 잡기 -> 스킬 사용 및 탭핑 -> 승리 또는 패배
     
+
     GameStatus();
     
     void NextStage();

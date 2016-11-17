@@ -22,7 +22,6 @@ bool GameScene::init()
     mGameStatus= new GameStatus();
     
     mStage++;
-    UserDefault::getInstance()->setIntegerForKey("Level", mStage);
     
     mSequence=nullptr;
     
@@ -47,20 +46,7 @@ bool GameScene::init()
     this->addChild(mMonster->GetDrawStatus()->GetLayer(),(int)Zorder::MonsterSprite);
     
 //---------------------------------------------------------//
-    //체력 바 클래스 구현 (11월 16일 오전 12시 32분)
-    mFighterHpBar = new HpBar();
-    mFighterHpBar->Init(mFighter->GetHealthPointer());
-    mFighterHpBar->SetPosition(300, 1210);
-    mFighterHpBar->SetAnchorPoint(Point(1,0.5));
-    mFighterHpBar->SetZorder((int)Zorder::Content);
-    mFighterHpBar->GetParents(this);
-    
-    mMonsterHpBar = new HpBar();
-    mMonsterHpBar->Init(mMonster->GetHealthPointer(),false);
-    mMonsterHpBar->SetPosition(420, 1210);
-    mMonsterHpBar->SetAnchorPoint(Point(0,0.5));
-    mMonsterHpBar->SetZorder((int)Zorder::Content);
-    mMonsterHpBar->GetParents(this);
+    MakeHpBar();
 
     auto vsbar = Sprite::create("ver2/UI/hpbar_middle.png");
     vsbar->setPosition(360,1210);
@@ -88,13 +74,6 @@ bool GameScene::init()
     bg->setPosition(0, 680);
     bg->setAnchorPoint(Point(0,0));
     this->addChild(bg,(int)Zorder::Background);
-    
-    //시간바에 해골
-    auto skeleton = Sprite::create("UI/skeleton.png");
-    skeleton->setPosition(80,650);
-    this->addChild(skeleton,3);
-    
-    skeleton->runAction(RepeatForever::create(Sequence::create(MoveBy::create(0.5f, Point(0,30)),MoveBy::create(0.5f, Point(0,-30)), NULL)));
 
 //-------------------------------중간----------------------------------------//
     CCLOG("Init Medle");
@@ -102,37 +81,15 @@ bool GameScene::init()
     TimeTexture[1]=TextureManager::CreateTexture("TimeBar/TimeBarFullRed.png");
     
     //시간바
-    mProgressTimer =ProgressTimer::create(Sprite::createWithTexture(TimeTexture[0]));
-    mProgressTimer->setPosition(20,615);
-    mProgressTimer->setAnchorPoint(Point(0,0));
-    mProgressTimer->setPercentage(100.0f);
-    mProgressTimer->setType(ProgressTimer::Type::BAR);
-    mProgressTimer->setMidpoint(Point(0, 0.5f));
-    mProgressTimer->setBarChangeRate(Point(1, 0));
-    mProgressTimer->runAction(ProgressFromTo::create(100, 101, 100));
-    this->addChild(mProgressTimer,(int)Zorder::TimeBar);
+    MakeProgressTimer();
     
-    //시간바 틀
-    auto timebar=Sprite::create("ver2/UI/timebar_layout.png");
-    timebar->setPosition(0,600);
-    timebar->setAnchorPoint(Point(0,0));
-    this->addChild(timebar,(int)Zorder::TimeBar-1);
-    
-    //플레이어 직업 텍스트
-    mCareerLabel=Label::createWithTTF(mFighter->GetCareer()->GetName(), "fonts/jungfont.ttf", 40);
-    mCareerLabel->setPosition(180,560);
-    this->addChild(mCareerLabel,(int)Zorder::Content);
-    
-    //몬스터 직업 텍스트
-    mMonsterCareerLabel=Label::createWithTTF(mMonster->GetCareer()->GetName(), "fonts/jungfont.ttf", 40);
-    mMonsterCareerLabel->setPosition(540,560);
-    this->addChild(mMonsterCareerLabel,(int)Zorder::Content);
+    MakeCareerText();
     
     //스테이터스 배경 이미지
-    auto inforback=Sprite::create("ver2/rebootUI/layout_ability-graph.png");
-    inforback->setPosition(0,242);
-    inforback->setAnchorPoint(Point(0,0));
-    this->addChild(inforback,(int)Zorder::Background);
+    mStatusBack=Sprite::create("ver2/rebootUI/layout_ability-graph.png");
+    mStatusBack->setPosition(0,242);
+    mStatusBack->setAnchorPoint(Point(0,0));
+    this->addChild(mStatusBack,(int)Zorder::Background);
 //--------------------------------하단---------------------------------------//
     CCLOG("Init Bottom");
     
@@ -156,17 +113,6 @@ bool GameScene::init()
     }
     mButtonFight->mSprite->setPosition(720,0);
     
-    mButtonPowerup = Button::create("UI/Button/btn_unbig.png");
-    mButtonPowerup->Init("UI/Button/btn_unbig.png", "UI/Button/btn_touchbig.png", "Power Up");
-    mButtonPowerup->mSprite->setAnchorPoint(Point(0.5,0));
-    mButtonPowerup->mSprite->setScaleY(1.2f);
-    mButtonPowerup->mSprite->setPosition(360,0);
-    mButtonPowerup->GetLabel()->setPosition(Point(360,300));
-    mButtonPowerup->mSprite->setVisible(false);
-    mButtonPowerup->GetLabel()->setVisible(false);
-    this->addChild(mButtonPowerup->mSprite,(int)Zorder::PowerButton);
-    this->addChild(mButtonPowerup->GetLabel(),(int)Zorder::PowerButton);
-
 //--------------------------------listener---------------------------------//
     listener=EventListenerTouchOneByOne::create();
     listener->onTouchBegan = CC_CALLBACK_2(GameScene::onTouchBegan, this);
@@ -200,9 +146,14 @@ bool GameScene::onTouchBegan(Touch* touch,Event* unused_event){
     }
     
     //-----------------------리부트, 파이트 버튼 --------------------//
-    mButtonReset->onTouchBegan(touch);
-    mButtonFight->onTouchBegan(touch);
+    if(mGameStatus->IsStatus(GameStatus::nStatus::TIMEACTION)){
+        mButtonReset->onTouchBegan(touch);
+        mButtonFight->onTouchBegan(touch);
+    }
     
+    if(mGameStatus->IsStatus(GameStatus::nStatus::FIRSTATTACK)){
+        mFirstChanceButton->onTouchBegan(touch);
+    }
     return true;
 }
 
@@ -222,25 +173,33 @@ void GameScene::onTouchMoved(Touch* touch,Event* unused_event){
     }
     
     //-----------------------리부트, 파이트 버튼 --------------------//
-    mButtonReset->onTouchMoved(touch);
-    mButtonFight->onTouchMoved(touch);
+    if(mGameStatus->IsStatus(GameStatus::nStatus::TIMEACTION)){
+        mButtonReset->onTouchMoved(touch);
+        mButtonFight->onTouchMoved(touch);
+    }
+    if(mGameStatus->IsStatus(GameStatus::nStatus::FIRSTATTACK)){
+        mFirstChanceButton->onTouchMoved(touch);
+    }
 }
 
 void GameScene::onTouchEnded(Touch* touch,Event* unused_event){
     
-    
+    //TEXT=0,BEFORTIME,TIMEACTION,BEFORFIRSTATTACK,FIRSTATTACK,BEFORFIGHT,FIGHT,RESULT,NEXTSCENE
     //-----------------------리부트, 파이트 버튼 --------------------//
-    if(mButtonReset->onTouchEnded(touch)&&mGameStatus->IsStatus(GameStatus::nStatus::TIMEACTION)){//Reboot 눌러지면
+    if(mGameStatus->IsStatus(GameStatus::nStatus::TIMEACTION)&&mButtonReset->onTouchEnded(touch)){//Reboot 눌러지면
         mFighter->Reset();//reset
         mFighter->ChangeCareer();
         mFighterHpBar->SetMaxHp(mFighter->GetHealth().GetHealthPointer());
         mCareerLabel->setString(mFighter->GetCareer()->GetName());
     }
-    if(mButtonFight->onTouchEnded(touch)&&mGameStatus->IsStatus(GameStatus::nStatus::TIMEACTION)){//Fight 눌러지면
+    if(mGameStatus->IsStatus(GameStatus::nStatus::TIMEACTION)&&mButtonFight->onTouchEnded(touch)){//Fight 눌러지면
         mProgressTimer->stopAllActions();
         mGameStatus->NextStage();
-        mButtonPowerup->GetLabel()->setVisible(true);
-        mButtonPowerup->mSprite->setVisible(true);
+    }
+    
+    if(mGameStatus->IsStatus(GameStatus::nStatus::FIRSTATTACK)){
+        if(mFirstChanceButton->onTouchEnded(touch))
+            mFirstChance->onTouchEnded(touch);
     }
     
     //------------------------파워업 버튼 ---------------------------//
@@ -275,10 +234,11 @@ void GameScene::update(float dt){
             this->schedule(schedule_selector(GameScene::NoTimeTexture), 0.3f);
     }
     
+    
     //---------------------- 처음 -------------------------//
     if(mGameStatus->IsStatus(GameStatus::nStatus::TEXT)){
         CCLOG("update start");
-        mStartLabel=Label::createWithTTF(StringUtils::format("%d 번째 용사님\n 도전",mStage+1), "fonts/jungfont.ttf", 60);
+        mStartLabel=Label::createWithTTF(StringUtils::format("%d Stage\n 도전",mStage+1), "fonts/jungfont.ttf", 60);
         mStartLabel->setAlignment(TextHAlignment::CENTER);
         mStartLabel->setPosition(0,900);
         
@@ -315,17 +275,66 @@ void GameScene::update(float dt){
     }
     
     //----------------------네번째--------------------------//
+    if(mGameStatus->IsStatus(GameStatus::nStatus::BEFORFIRSTATTACK)){
+        RemoveForParent(mFighter->GetDrawStatus()->GetLayer());
+        RemoveForParent(mMonster->GetDrawStatus()->GetLayer());
+        RemoveForParent(mCareerLabel);
+        RemoveForParent(mMonsterCareerLabel);
+        RemoveForParent(mStatusBack);
+        RemoveForParent(mButtonFight->GetLabel());
+        RemoveForParent(mButtonReset->GetLabel());
+        RemoveForParent(mButtonFight->mSprite);
+        RemoveForParent(mButtonReset->mSprite);
+        
+        mFirstChance= new FirstChance();
+        mFirstChance->Init();
+        mFirstChance->GetParents(this,(int)Zorder::Background);
+        this->addChild(mFirstChance->GetLayout(),(int)Zorder::Background);
+        this->schedule(schedule_selector(GameScene::UpdateFirstChance), 0.1f);
+        
+        auto mFirstChanceLabel = Label::createWithTTF("선공정하기", "fonts/jungfont.ttf", 60);
+        mFirstChanceLabel->setAlignment(TextHAlignment::CENTER);
+        mFirstChanceLabel->setPosition(360,900);
+        Spawn* spawn =Spawn::create(FadeOut::create(0.5f),MoveBy::create(0.5f, Point(0,50)), NULL);
+        
+        mSequence = Sequence::create(DelayTime::create(1.0f),spawn, NULL);
+        mFirstChanceLabel->runAction(mSequence);
+        
+        mFirstChanceButton=Button::create("ver2/SelectAttackUI/power-up.png");
+        mFirstChanceButton->Init("ver2/SelectAttackUI/power-up.png","ver2/SelectAttackUI/power-up(off).png","");
+        mFirstChanceButton->mSprite->setAnchorPoint(Point(0,0));
+        this->addChild(mFirstChanceButton->mSprite,(int)Zorder::Button);
+        
+        mGameStatus->NextStage();
+    }
+        
+    //----------------------다섯번째--------------------------//
+    if(mGameStatus->IsStatus(GameStatus::nStatus::FIRSTATTACK)){
+        if(mFirstChance->IsPlayerWin()||mFirstChance->IsMonsterWin()){
+            MakePowerUpButton();
+        }
+        
+        if(mFirstChance->IsMonsterWin()){
+
+            IsPlayerTurn=false;
+            mGameStatus->NextStage();
+        }else if(mFirstChance->IsPlayerWin()){
+            
+            IsPlayerTurn=true;
+            mGameStatus->NextStage();
+        }
+    }
+    
+    //----------------------네번째--------------------------//
     if(mGameStatus->IsStatus(GameStatus::nStatus::BEFORFIGHT)){
         Label* startlabel = Label::createWithTTF("FIGHT", "fonts/jungfont.ttf", 80);
-        startlabel->setTag(1000);
         startlabel->setColor(Color3B::WHITE);
         startlabel->setPosition(360,1000);
         this->addChild(startlabel,(int)Zorder::Content);
         
         Spawn* spawn =Spawn::create(FadeOut::create(0.5f),MoveBy::create(0.5f, Point(0,50)), NULL);
     
-        mSequence =Sequence::create(DelayTime::create(1.0f),spawn, NULL);
-        mSequence->setTag(100);
+        mSequence = Sequence::create(DelayTime::create(1.0f),spawn, NULL);
         
         startlabel->runAction(mSequence);
         mGameStatus->NextStage();
@@ -446,7 +455,7 @@ void GameScene::GameOver(){
     mGameOverLayer =LayerColor::create(Color4B(Color4F(0,73/(float)255,170/(float)255,0.7)));
     this->addChild(mGameOverLayer,(int)Zorder::GameOverLayer);
     
-    mButtonRestart= (Button*)Button::create();
+    mButtonRestart= (Button*)Button::create("Button/btn_un.png");
     mButtonRestart->Init("Button/btn_un.png", "Button/btn_touch.png", "restart");
     mButtonRestart->mSprite->setPosition(Point(360,500));
     mButtonRestart->GetLabel()->setPosition(Point(360,500));
@@ -462,7 +471,7 @@ void GameScene::GameOver(){
     mGameOverLayer->addChild(mGameOver,1);
     this->schedule(schedule_selector(GameScene::GameOverTexture), 0.3f);
     
-    mButtonMain= (Button*)Button::create();
+    mButtonMain= (Button*)Button::create("Button/btn_un.png");
     mButtonMain->Init("Button/btn_un.png", "Button/btn_touch.png", "Main menu");
     mButtonMain->mSprite->setPosition(Point(360,370));
     mButtonMain->GetLabel()->setPosition(Point(360,370));
@@ -487,4 +496,13 @@ void GameScene::NoTimeTexture(float dt){
         mProgressTimer->getSprite()->setTexture(TimeTexture[0]);
     
     IsTime=!IsTime;
+}
+
+void GameScene::UpdateFirstChance(float dt){
+    if(mGameStatus->IsStatus(GameStatus::nStatus::FIRSTATTACK))
+    mFirstChance->Update(dt);
+}
+void GameScene::RemoveForParent(Node* node){
+    node->setVisible(false);
+    node->getParent()->removeChild(node);
 }

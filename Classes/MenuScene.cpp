@@ -31,8 +31,6 @@ bool MenuScene::init()
     {
         return false;
     }
-
-    GameScene::mStage=UserDefault::getInstance()->getIntegerForKey("Level")-1;
     
     //이미지 만들기
     auto Logo=Sprite::create("UI/logo.png");

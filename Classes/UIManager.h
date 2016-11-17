@@ -12,7 +12,6 @@
 
 #include "cocos2d.h"
 
-
 USING_NS_CC;
 
 #define Ver2 "ver2/"

@@ -32,10 +32,6 @@ bool AppDelegate::applicationDidFinishLaunching() {
         glview = GLViewImpl::createWithRect("My Game",Rect(0,0,720,1280));
         director->setOpenGLView(glview);
     }
-    if(UserDefault::getInstance()->getIntegerForKey("Level")==0){
-        UserDefault::getInstance()->setIntegerForKey("Level", 0);
-    }
-    
 
     director->getOpenGLView()->setDesignResolutionSize(720,1280,ResolutionPolicy::SHOW_ALL);
     

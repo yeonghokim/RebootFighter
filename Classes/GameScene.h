@@ -7,6 +7,7 @@
 
 #include "DelayManager.h"
 #include "GameStatus.h"
+#include "FirstChance.h"
 USING_NS_CC;
 
 class GameScene : public Layer
@@ -19,14 +20,23 @@ private:
     Label* mStartLabel;    
 private:
     
+    FirstChance* mFirstChance;
+    
+    void UpdateFirstChance(float dt);
+    
     //플레이어 턴, 몬스터 턴인지,
     bool IsPlayerTurn;
+    
+    Button* mFirstChanceButton;
+    
+private:
     
     EventListenerTouchOneByOne* listener;
 
     //체력 바
     HpBar* mFighterHpBar;
     HpBar* mMonsterHpBar;
+    void MakeHpBar();
     
     //하단 버튼
     Button* mButtonReset;
@@ -34,6 +44,7 @@ private:
     std::vector<Button*> mButtonArray;
     
     Button* mButtonPowerup;
+    void MakePowerUpButton();
     
     //파이터 두마리
     Fighter* mFighter;
@@ -43,10 +54,15 @@ private:
     bool IsTime;
     ProgressTimer* mProgressTimer;
     Texture2D* TimeTexture[2];//타임바 색깔 텍스쳐 두개(50이하일때 번갈아 가면서)
+    void MakeProgressTimer();
     
     //직업 텍스트 뷰어
     Label* mCareerLabel;
     Label* mMonsterCareerLabel;
+    void MakeCareerText();
+    
+    //스테이터스 배경 이미지
+    Sprite* mStatusBack;
 
     //게임 종료부분 버튼 두개
     Button* mButtonRestart;
@@ -86,6 +102,8 @@ private:
 public:
     static int mStage;
 public:
+    void RemoveForParent(Node* node);
+    
     void update(float dt);
     
     void SetBattle(float dt);

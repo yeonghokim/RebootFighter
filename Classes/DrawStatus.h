@@ -39,6 +39,5 @@ public:
     float CalculateSin(float Angle);
     float CalculateCos(float Angle);
     
-    
     Layer* GetLayer();
 };
