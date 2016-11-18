@@ -48,7 +48,7 @@ void Fighter::Reset() {
 }
 
 void Fighter::Dead(){
-    mHealty.Damaged(100000000);
+    mHealty.Damaged(10000);
     
 }
 void Fighter::ChangeCareer(){
@@ -244,15 +244,6 @@ void Fighter::InitTexture(){
     
 }
 void Fighter::DieAction(){
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
 }

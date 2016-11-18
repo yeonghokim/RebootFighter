@@ -12,6 +12,7 @@ void GameScene::HitMonster(){
         //회피
         
         Label* Labelavoid = Label::createWithTTF("Miss!", "fonts/jungfont.ttf", 50);
+        Labelavoid->setColor(Color3B::BLACK);
         Point point = mMonster->GetSprite()->getPosition();
         point += Point(60,60);
         Labelavoid->setPosition(point);
@@ -57,6 +58,7 @@ void GameScene::HitPlayer(){
         //회피
         
         Label* Labelavoid = Label::createWithTTF("Miss!", "fonts/jungfont.ttf", 50);
+        Labelavoid->setColor(Color3B::BLACK);
         Point point = mFighter->GetSprite()->getPosition();
         point += Point(60,-60);
         Labelavoid->setPosition(point);

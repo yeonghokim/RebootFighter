@@ -149,6 +149,7 @@ bool GameScene::onTouchBegan(Touch* touch,Event* unused_event){
     if(mGameStatus->IsStatus(GameStatus::nStatus::TIMEACTION)){
         mButtonReset->onTouchBegan(touch);
         mButtonFight->onTouchBegan(touch);
+        return true;
     }
     
     if(mGameStatus->IsStatus(GameStatus::nStatus::FIRSTATTACK)){
@@ -176,6 +177,7 @@ void GameScene::onTouchMoved(Touch* touch,Event* unused_event){
     if(mGameStatus->IsStatus(GameStatus::nStatus::TIMEACTION)){
         mButtonReset->onTouchMoved(touch);
         mButtonFight->onTouchMoved(touch);
+        return;
     }
     if(mGameStatus->IsStatus(GameStatus::nStatus::FIRSTATTACK)){
         mFirstChanceButton->onTouchMoved(touch);
@@ -191,10 +193,13 @@ void GameScene::onTouchEnded(Touch* touch,Event* unused_event){
         mFighter->ChangeCareer();
         mFighterHpBar->SetMaxHp(mFighter->GetHealth().GetHealthPointer());
         mCareerLabel->setString(mFighter->GetCareer()->GetName());
+        return;
     }
+
     if(mGameStatus->IsStatus(GameStatus::nStatus::TIMEACTION)&&mButtonFight->onTouchEnded(touch)){//Fight 눌러지면
         mProgressTimer->stopAllActions();
         mGameStatus->NextStage();
+        return;
     }
     
     if(mGameStatus->IsStatus(GameStatus::nStatus::FIRSTATTACK)){
@@ -312,6 +317,10 @@ void GameScene::update(float dt){
     if(mGameStatus->IsStatus(GameStatus::nStatus::FIRSTATTACK)){
         if(mFirstChance->IsPlayerWin()||mFirstChance->IsMonsterWin()){
             MakePowerUpButton();
+            
+            ////////////////////////////////////////////////////////////////////////////////////////////
+            
+            
         }
         
         if(mFirstChance->IsMonsterWin()){
@@ -362,7 +371,6 @@ void GameScene::update(float dt){
         mGameStatus->SetStage(GameStatus::nStatus::NEXTSCENE);
         mGameStatus->NextStage();
     }
-
 }
 void GameScene::TextureSchedule(float dt){
     if(!mFighter->GetHealth().IsDie())
@@ -449,14 +457,12 @@ void GameScene::SetBattle(float dt){
         }
     }
 }
-
-
 void GameScene::GameOver(){
     mGameOverLayer =LayerColor::create(Color4B(Color4F(0,73/(float)255,170/(float)255,0.7)));
     this->addChild(mGameOverLayer,(int)Zorder::GameOverLayer);
     
-    mButtonRestart= (Button*)Button::create("Button/btn_un.png");
-    mButtonRestart->Init("Button/btn_un.png", "Button/btn_touch.png", "restart");
+    mButtonRestart= (Button*)Button::create("UI/Button/btn_un.png");
+    mButtonRestart->Init("UI/Button/btn_un.png", "UI/Button/btn_touch.png", "restart");
     mButtonRestart->mSprite->setPosition(Point(360,500));
     mButtonRestart->GetLabel()->setPosition(Point(360,500));
     mGameOverLayer->addChild(mButtonRestart->mSprite,1);
@@ -471,8 +477,8 @@ void GameScene::GameOver(){
     mGameOverLayer->addChild(mGameOver,1);
     this->schedule(schedule_selector(GameScene::GameOverTexture), 0.3f);
     
-    mButtonMain= (Button*)Button::create("Button/btn_un.png");
-    mButtonMain->Init("Button/btn_un.png", "Button/btn_touch.png", "Main menu");
+    mButtonMain= (Button*)Button::create("UI/Button/btn_un.png");
+    mButtonMain->Init("UI/Button/btn_un.png", "UI/Button/btn_touch.png", "Main menu");
     mButtonMain->mSprite->setPosition(Point(360,370));
     mButtonMain->GetLabel()->setPosition(Point(360,370));
     mGameOverLayer->addChild(mButtonMain->mSprite,1);
@@ -503,6 +509,6 @@ void GameScene::UpdateFirstChance(float dt){
     mFirstChance->Update(dt);
 }
 void GameScene::RemoveForParent(Node* node){
-    node->setVisible(false);
+    //node->setVisible(false);
     node->getParent()->removeChild(node);
 }
